@@ -14,8 +14,11 @@ env:
     - R_CHECK_ARGS="--no-vignettes --no-manual"
 
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - curl -OL http://raw.github.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
+  - curl -OL http://raw.github.com/wertion/r-travis-mac/master/scripts/create-osx.sh
   - chmod 755 ./travis-tool.sh
+  - chmod 755 ./create-osx.sh
+  - ./create-osx.sh
   - ./travis-tool.sh bootstrap
 
 install:
