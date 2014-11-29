@@ -3,9 +3,16 @@
 # Download script file from GitHub
 init:
   ps: |
+<<<<<<< HEAD
   $ErrorActionPreference = "Stop"
 Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
 Import-Module '..\appveyor-tool.ps1'
+=======
+        $ErrorActionPreference = "Stop"
+        Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+        Import-Module '..\appveyor-tool.ps1'
+
+>>>>>>> 3504af1edfc5bc4397e02af81a79f55b99a80912
 install:
   ps: Bootstrap
 
@@ -22,6 +29,7 @@ on_failure:
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
+<<<<<<< HEAD
 name: Logs
 
 - path: '*.Rcheck\**\*.out'
@@ -38,3 +46,21 @@ name: Bits
 
 - path: '\*_*.zip'
 name: Bits
+=======
+    name: Logs
+
+  - path: '*.Rcheck\**\*.out'
+    name: Logs
+
+  - path: '*.Rcheck\**\*.fail'
+    name: Logs
+
+  - path: '*.Rcheck\**\*.Rout'
+    name: Logs
+
+  - path: '\*_*.tar.gz'
+    name: Bits
+
+  - path: '\*_*.zip'
+    name: Bits
+>>>>>>> 3504af1edfc5bc4397e02af81a79f55b99a80912

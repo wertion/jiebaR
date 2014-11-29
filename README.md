@@ -7,7 +7,7 @@
 
 ## 特性
 
-+ 支持 Windows , Linux， Mac 操作系统。
++ 支持 Windows，Linux，Mac 操作系统。
 + 通过Rcpp Modules实现同时加载多个分词系统,可以分别使用不同的分词模式和词库。
 + 支持多种分词模式、中文姓名识别、关键词提取、词性标注以及文本Simhash相似度比较等功能。
 + 支持加载自定义用户词库，设置词频、词性。
@@ -18,26 +18,28 @@
 + 可以通过[Rpy2]，[jvmr]等被其他语言调用。
 + 基于MIT协议。
 
+## GitHub 版更新 v0.2.1
+
++ 2X 分词速度
++ 快速模式
++ 修正特定环境下的编码转换问题
+
 ## 安装
 
-目前该包已经发布到CRAN：
+通过CRAN安装:
 
 ```r
 install.packages("jiebaR")
 library("jiebaR")
 ```
 
-同时还可以通过Github安装正在测试的开发版：
+同时还可以通过Github安装开发版,建议使用 gcc >= 4.6 编译包：
 
 ```r
 library(devtools)
 install_github("qinwf/jiebaR")
 library("jiebaR")
 ```
-
-通过Github进行安装时，Windows系统需要安装 [Rtools]，建议使用 gcc >= 4.6 编译包，jiebaR支持 R >= 3.1 。
-
-Windows 和 Mac OS X Mavericks 还可以下载[安装包]进行安装。
 
 ## 使用示例
 
@@ -46,8 +48,6 @@ Windows 和 Mac OS X Mavericks 还可以下载[安装包]进行安装。
 jiebaR提供了四种分词模式，可以通过`worker()`来初始化分词引擎，使用`segment()`进行分词。
 
 ```r
-library(jiebaR)
-
 ##  接受默认参数，建立分词引擎 
 mixseg = worker()
 
@@ -120,7 +120,7 @@ $user
 $detect $encoding $symbol $output $write $lines can be reset.
 ```
 
-可以通过R语言常用的 `$`符号重设一些`worker`的参数设置 , 如 ` WorkerName$symbol = T `，在输出中保留标点符号。一些参数在初始化的时候已经确定，无法修改, 可以通过`WorkerName$PrivateVarible`来获得这些信息。
+可以通过R语言常用的 `$`符号重设一些`worker`的参数设置，如 ` WorkerName$symbol = T `，在输出中保留标点符号。一些参数在初始化的时候已经确定，无法修改， 可以通过`WorkerName$PrivateVarible`来获得这些信息。
 
 ```r
 mixseg$encoding
@@ -135,8 +135,65 @@ ShowDictPath()  ### 显示词典路径
 EditDict()      ### 编辑用户词典
 ?EditDict()     ### 打开帮助系统
 ```
+
+### 快速模式
+
+无需使用`worker()`，使用默认参数启动引擎，并立即进行分词：
+
+```r
+library(jiebaR)
+
+qseg <= "江州市长江大桥参加了长江大桥的通车仪式" 
+```
+
+```r
+[1] "江州"     "市长"     "江大桥"   "参加"     "了"       "长江大桥" "的"      
+[8] "通车"     "仪式"   
+```
+`qseg` ~ quick segmentation，使用默认分词模式，自动建立分词引擎，类似于`ggplot2`包里面的`qplot`函数。
+
+```r
+### 第一次运行时，启动默认引擎 quick_worker，第二次运行，不再启动引擎。
+qseg <= "这是测试文本。" 
+
+```
+
+```r
+[1] "这是" "测试" "文本"
+```
+
+```r
+### 效果相同
+quick_worker <=  "这是测试文本。" 
+
+qseg
+```
+
+```r
+Worker Type:  Mix Segment
+
+Detect Encoding :  TRUE
+Default Encoding:  UTF-8
+Keep Symbols    :  FALSE
+Output Path     :  NULL
+.......
+```
+
+可以通过`qseg$`重设模型参数，重设模型参数将会修改以后每次默认启动的默认参数，如果只是希望单次修改模型参数，可以使用非快速模式的修改方式`quick_worker$`。
+
+```r
+qseg$type = "mp" ### 重设模型参数的同时，重新启动引擎。
+
+qseg$type        ### 下次重新启动包是将使用现在的参数，构建模型。
+
+quick_worker$detect = T ### 临时修改，对下次重新启动包时，没有影响。
+
+get_qsegmodel()         ### 获得当前快速模式的默认参数
+
+```
+
 ### 词性标注
-可以使用 `<=.tagger` 或者 `tag` 来进行分词和词性标注, 词性标注使用混合模型模型分词，标注采用和 ictclas 兼容的标记法。
+可以使用 `<=.tagger` 或者 `tag` 来进行分词和词性标注，词性标注使用混合模型模型分词，标注采用和 ictclas 兼容的标记法。
 
 ```r
 words = "我爱北京天安门"
@@ -149,7 +206,7 @@ tagger <= words
     "我"     "爱"   "北京" "天安门" 
 ```
 ### 关键词提取
-关键词提取所使用逆向文件频率（IDF）文本语料库可以切换成自定义语料库的路径,使用方法与分词类似。`topn`参数为关键词的个数。
+关键词提取所使用逆向文件频率（IDF）文本语料库可以切换成自定义语料库的路径，使用方法与分词类似。`topn`参数为关键词的个数。
 
 ```r
 keys = worker("keywords", topn = 1)
