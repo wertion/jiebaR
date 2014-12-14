@@ -12,6 +12,11 @@ env:
   matrix:
     - _R_CHECK_CRAN_INCOMING_=FALSE
     - BOOTSTRAP_UBSAN="1"
+    
+compiler: 
+  - clang 
+  - gcc 
+
 
 before_install:
   - curl -OL http://raw.github.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
