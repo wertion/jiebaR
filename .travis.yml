@@ -14,7 +14,7 @@ env:
     - BOOTSTRAP_UBSAN="1"
     
 before_install:
-  - curl -OL http://raw.github.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
+  - curl -OL https://raw.githubusercontent.com/qinwf/r-travis/patch-UBSAN/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
