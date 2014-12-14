@@ -18,10 +18,10 @@ accuracy.
 }
 \examples{
 ### Note: Can not display Chinese character here.
-\donttest{
+
 words = "hello world"
 test1 = worker()
-test1 <= words}
+test1 <= words
 
 \dontrun{
 test <= "./temp.txt"
@@ -32,7 +32,7 @@ engine2 <= "./temp.txt"
 engine3 = worker(type = "mix", dict = "dict_path",symbol = T)
 engine3 <= "./temp.txt"
  }
-\donttest{
+
 ### Keyword Extraction
 keys = worker("keywords", topn = 1)
 keys <= words
@@ -46,7 +46,7 @@ simhasher = worker("simhash", topn = 1)
 simhasher <= words
 distance("hello world" , "hello world!" , simhasher)
 
-}
+
 ShowDictPath()
 }
 \author{
