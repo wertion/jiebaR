@@ -11,10 +11,10 @@ env:
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
   matrix:
     - _R_CHECK_CRAN_INCOMING_=FALSE
-    - BOOTSTRAP_UBSAN="1"
+    - BOOTSTRAP_UBSAN=TRUE
     
 before_install:
-  - curl -OL https://raw.githubusercontent.com/qinwf/r-travis/patch-UBSAN/scripts/travis-tool.sh
+  - curl -OL https://raw.githubusercontent.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
