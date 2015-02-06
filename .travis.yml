@@ -13,7 +13,7 @@ env:
     - _R_CHECK_CRAN_INCOMING_=FALSE
     
 before_install:
-  - curl -OL https://raw.githubusercontent.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
