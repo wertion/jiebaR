@@ -3,7 +3,7 @@
 # See https://github.com/craigcitro/r-travis
 #     https://github.com/eddelbuettel/r-travis/
 
-language: c
+language: object-c
 
 env:
   global:
@@ -11,7 +11,6 @@ env:
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
   matrix:
     - _R_CHECK_CRAN_INCOMING_=FALSE
-    - BOOTSTRAP_UBSAN=TRUE
     
 before_install:
   - curl -OL https://raw.githubusercontent.com/wertion/r-travis-mac/master/scripts/travis-tool.sh
