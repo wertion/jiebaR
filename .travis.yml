@@ -3,7 +3,7 @@
 # See https://github.com/craigcitro/r-travis
 #     https://github.com/eddelbuettel/r-travis/
 
-language: object-c
+language: objective-c
 
 env:
   global:
