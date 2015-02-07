@@ -1,3 +1,2 @@
-CXX_STD = CXX11
-PKG_CPPFLAGS = -I../inst/include -DLOGGER_LEVEL=LL_WARN
+PKG_CPPFLAGS = -I../inst/include -DLOGGER_LEVEL=LL_WARN -std=c++0x
 
